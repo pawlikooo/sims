@@ -1,0 +1,26 @@
+table
+  tbody
+    tr
+      td
+        h3 UserName: 
+      td
+        h3 #{userinfo.user.login}
+    tr
+      td
+        h3 LastLogon was
+      td
+        h3 #{userinfo.user.dateLastLogon} - #{userinfo.offlineTime}        
+    tr
+      td totalBytesSend
+      td #{userinfo.totalBytesSend}
+    tr
+      td totalBytesRecivied
+      td #{userinfo.totalBytesRecivied}
+    tr
+      td totalMessagesSend
+      td #{userinfo.totalMessagesSend}
+    tr
+      td totalMessagesGet
+      td #{userinfo.totalMessagesGet}
+p About me:
+p #{userinfo.user.info}

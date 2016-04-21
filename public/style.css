@@ -1,0 +1,68 @@
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  background: #eee;
+  font-family: "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
+  font-height: 17px;
+}
+
+#container {
+  width: 980px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 4px;
+}
+
+#header {
+  padding: 1em;
+}
+
+#header h1 {
+  margin: 0;
+  font-size: 5em;
+}
+
+#main h2 {
+  margin-top: 0;
+}
+
+#main {
+  padding: 1em;
+}
+
+#main .userInfp {
+  padding: 1em;
+  width: 980px;
+}
+
+#main .alerts {
+  display: none;
+}
+
+#main .alerts {
+  padding: 0 0 1em 0;
+}
+
+#main .alerts .error {
+  color: red;
+}
+
+#main .alerts .info {
+  color: #6d6;
+}
+
+TABLE {
+  border: 1px solid #00B7FF;
+}
+
+TD,
+TH {
+  padding: 5px;
+  border: 1px solid #00B7FF;
+}

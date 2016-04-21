@@ -5,7 +5,7 @@
 **Setup SIMS**
 
 ```bash
-git clone https://github.com/dresende/node-orm2.git
+git clone https://github.com/pawlikooo/sims.git
 cd sims
 npm install
 

@@ -2,7 +2,8 @@ var _ = require('lodash');
 var moment = require('moment')
 var router = require('express').Router();
 
-/* GET home page. */
+// GET home admin page.
+//TODO Totally zero authetification
 router.get('/', function (req, res, next) {
     req.models.users.find().limit(30).order('id').omit("passwordHash").all(function (err, users) {
         if (err) return next(err);
@@ -23,6 +24,8 @@ router.get('/userinfo/:id', function (req, res, next) {
     var totalBytesSend;
     var totalBytesSend;
 
+    //TODO Hate this callback hell
+    
     req.models.users.get(id, function (err, user) {
         if (err) return next(err);
 

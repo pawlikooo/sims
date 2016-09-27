@@ -1,23 +1,36 @@
-var orm = require('orm');
-var config = require('../config');
-
-var connection = null;
-
-function setup(db, cb) {
-    require('./message')(orm, db);
-    require('./user')(orm, db);
-
-    return cb(null, db);
+module.exports = function(orm, db) {
+  var Users = db.define('users', {
+    login: {
+      type: 'text',
+      size: 45,
+      required: true
+    },
+    passwordHash: {
+      type: 'text',
+      size: 128,
+      required: true
+    },
+    info: {
+      type: 'text',
+      size: 1024
+    },
+    dateCreated: {
+      type: 'date',
+      required: true,
+      time: true
+    },
+    dateLastLogon: {
+      type: 'date',
+      time: true
+    }
+  }, {
+    validations: {
+      login: [
+        orm.enforce.required()
+      ],
+      passwordHash: [
+        orm.enforce.required()
+      ]
+    }
+  })
 }
-
-module.exports = function (cb) {
-    if (connection) return cb(null, connection);
-
-    orm.connect(config.database, function (err, db) {
-        if (err) return cb(err);
-
-        connection = db;
-        db.settings.set('instance.returnAllErrors', true);
-        setup(db, cb);
-    });
-};

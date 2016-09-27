@@ -1,56 +1,59 @@
-var _ = require('lodash');
+var _ = require('lodash')
 var moment = require('moment')
-var router = require('express').Router();
+var router = require('express').Router()
 
 // GET home admin page.
-//TODO Totally zero authetification
-router.get('/', function (req, res, next) {
-    req.models.users.find().limit(30).order('id').omit("passwordHash").all(function (err, users) {
-        if (err) return next(err);
+// TODO Totally zero authetification
+router.get('/', function(req, res, next) {
+    req.models.users.find().limit(30).order('id').omit('passwordHash').all(function(err, users) {
+        if (err) return next(err)
 
-        res.render('admin', { users: JSON.stringify(users), title: "admin panel" });
-    });
-});
+        res.render('admin', {
+            users: JSON.stringify(users),
+            title: 'admin panel'
+        })
+    })
+})
 
-router.get('/userinfo/:id', function (req, res, next) {
-    var id = req.params.id;
-    var offlineTime;
-    var totalBytesSend;
-    var totalBytesRecivied;
-    var totalMessagesSend;
-    var totalMessagesGet;
-    var totalBytesSend;
-    var totalBytesSend;
-    var totalBytesSend;
-    var totalBytesSend;
+router.get('/userinfo/:id', function(req, res, next) {
+    var id = req.params.id
+    var offlineTime
+    var totalBytesSend
+    var totalBytesRecivied
+    var totalMessagesSend
+    var totalMessagesGet
+    var totalBytesSend
+    var totalBytesSend
+    var totalBytesSend
+    var totalBytesSend
 
-    //TODO Hate this callback hell
-    
-    req.models.users.get(id, function (err, user) {
-        if (err) return next(err);
+    // TODO Hate this callback hell
 
-        //How long was offline
-        offlineTime = moment(user.dateLastLogon).fromNow();
+    req.models.users.get(id, function(err, user) {
+        if (err) return next(err)
 
-        //totalBytesSend
-        req.db.driver.execQuery("SELECT sum(CHAR_LENGTH(body)) as X FROM msg.messages WHERE sender = ?", [id], function (err, data) {
-            if (err) return next(err);
-            totalBytesSend = data[0].X;
+        // How long was offline
+        offlineTime = moment(user.dateLastLogon).fromNow()
 
-            //totalBytesRecivied
-            req.db.driver.execQuery("SELECT sum(CHAR_LENGTH(body)) as X FROM msg.messages WHERE recipient = ?", [id], function (err, data) {
-                if (err) return next(err);
-                totalBytesRecivied = data[0].X;;
+        // totalBytesSend
+        req.db.driver.execQuery('SELECT sum(CHAR_LENGTH(body)) as X FROM msg.messages WHERE sender = ?', [id], function(err, data) {
+            if (err) return next(err)
+            totalBytesSend = data[0].X
 
-                //totalMessagesSend
-                req.db.driver.execQuery("SELECT count(*) as X FROM msg.messages WHERE sender = ?", [id], function (err, data) {
-                    if (err) return next(err);
-                    totalMessagesSend = data[0].X;;
+            // totalBytesRecivied
+            req.db.driver.execQuery('SELECT sum(CHAR_LENGTH(body)) as X FROM msg.messages WHERE recipient = ?', [id], function(err, data) {
+                if (err) return next(err)
+                totalBytesRecivied = data[0].X
 
-                    //totalMessagesGet
-                    req.db.driver.execQuery("SELECT count(*) as X FROM msg.messages WHERE recipient = ?", [id], function (err, data) {
-                        if (err) return next(err);
-                        totalMessagesGet = data[0].X;;
+                // totalMessagesSend
+                req.db.driver.execQuery('SELECT count(*) as X FROM msg.messages WHERE sender = ?', [id], function(err, data) {
+                    if (err) return next(err)
+                    totalMessagesSend = data[0].X
+
+                    // totalMessagesGet
+                    req.db.driver.execQuery('SELECT count(*) as X FROM msg.messages WHERE recipient = ?', [id], function(err, data) {
+                        if (err) return next(err)
+                        totalMessagesGet = data[0].X
 
                         var userinfo = {
                             user: user,
@@ -58,17 +61,17 @@ router.get('/userinfo/:id', function (req, res, next) {
                             totalBytesSend: totalBytesSend,
                             totalBytesRecivied: totalBytesRecivied,
                             totalMessagesSend: totalMessagesSend,
-                            totalMessagesGet: totalMessagesGet,
-                        };
+                            totalMessagesGet: totalMessagesGet
+                        }
 
-                        res.render('userinfo', { userinfo: userinfo });
+                        res.render('userinfo', {
+                            userinfo: userinfo
+                        })
+                    })
+                })
+            })
+        })
+    })
+})
 
-                    });
-                });
-            });
-        });
-    });
-
-});
-
-module.exports = router;
+module.exports = router

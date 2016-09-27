@@ -2,7 +2,7 @@
 
 ## Getting started
 
-**Setup SIMS**
+### Setup SIMS
 
 ```bash
 git clone https://github.com/pawlikooo/sims.git
@@ -12,18 +12,18 @@ npm install
 
 Edit `config.js` to set your database, user & password.
 
-**Run SIMS**
+### Run SIMS
 
 ```bash
 npm run-script reset
 npm start
 ```
 
-**Open SIMS**
+### Open SIMS
 
 And then open up [localhost:3000](http://localhost:3000/)
 
-**Data generator**
+### Data generato
 
 Also, there is built-in data generator:
 
